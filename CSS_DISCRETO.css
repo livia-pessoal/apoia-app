@@ -1,0 +1,38 @@
+/* ============================================ */
+/* ANIMAÇÕES DISCRETAS - Apenas o Essencial */
+/* ============================================ */
+/* Cole APENAS isso no final do index.css */
+/* ============================================ */
+
+/* Fade In Suave - Carregamento discreto */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* Transições Suaves - Hover sem exagero */
+.transition-smooth {
+  transition: all 0.2s ease;
+}
+
+/* Card Hover Sutil - Apenas sombra leve */
+.card-hover-subtle:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* Progress Bar Suave */
+.progress-smooth {
+  transition: width 0.8s ease-out;
+}
+
+/* ============================================ */
+/* FIM - Apenas 4 animações discretas */
+/* ============================================ */

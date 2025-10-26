@@ -1,0 +1,382 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    --background: 280 40% 98%;
+    --foreground: 280 30% 15%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 280 30% 15%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 280 30% 15%;
+
+    --primary: 280 65% 60%;
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 280 70% 75%;
+
+    --secondary: 270 55% 88%;
+    --secondary-foreground: 280 30% 20%;
+
+    --muted: 270 40% 95%;
+    --muted-foreground: 280 20% 50%;
+
+    --accent: 290 70% 65%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 280 30% 90%;
+    --input: 280 30% 92%;
+    --ring: 280 65% 60%;
+
+    --success: 150 60% 50%;
+    --success-foreground: 0 0% 100%;
+
+    --warning: 35 90% 60%;
+    --warning-foreground: 0 0% 100%;
+
+    --radius: 1rem;
+
+    --gradient-primary: linear-gradient(135deg, hsl(280 65% 60%), hsl(290 70% 70%));
+    --gradient-hero: linear-gradient(180deg, hsl(280 40% 98%), hsl(280 50% 95%));
+    --gradient-card: linear-gradient(135deg, hsl(0 0% 100%), hsl(280 30% 98%));
+    
+    --shadow-soft: 0 4px 20px -2px hsl(280 65% 60% / 0.15);
+    --shadow-elevated: 0 10px 40px -5px hsl(280 65% 60% / 0.25);
+    
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+    --sidebar-background: 0 0% 98%;
+
+    --sidebar-foreground: 240 5.3% 26.1%;
+
+    --sidebar-primary: 240 5.9% 10%;
+
+    --sidebar-primary-foreground: 0 0% 98%;
+
+    --sidebar-accent: 240 4.8% 95.9%;
+
+    --sidebar-accent-foreground: 240 5.9% 10%;
+
+    --sidebar-border: 220 13% 91%;
+
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 280 30% 10%;
+    --foreground: 280 20% 95%;
+
+    --card: 280 25% 14%;
+    --card-foreground: 280 20% 95%;
+
+    --popover: 280 25% 14%;
+    --popover-foreground: 280 20% 95%;
+
+    --primary: 280 65% 65%;
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 280 70% 80%;
+
+    --secondary: 280 25% 20%;
+    --secondary-foreground: 280 20% 95%;
+
+    --muted: 280 20% 18%;
+    --muted-foreground: 280 15% 60%;
+
+    --accent: 290 70% 60%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 62.8% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 280 20% 22%;
+    --input: 280 20% 22%;
+    --ring: 280 65% 65%;
+    
+    --success: 150 50% 45%;
+    --success-foreground: 0 0% 100%;
+    
+    --gradient-primary: linear-gradient(135deg, hsl(280 65% 65%), hsl(290 70% 75%));
+    --gradient-hero: linear-gradient(180deg, hsl(280 30% 10%), hsl(280 25% 14%));
+    --gradient-card: linear-gradient(135deg, hsl(280 25% 14%), hsl(280 25% 16%));
+    
+    --shadow-soft: 0 4px 20px -2px hsl(280 65% 30% / 0.3);
+    --shadow-elevated: 0 10px 40px -5px hsl(280 65% 30% / 0.5);
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Leaflet Map Styles */
+.leaflet-container {
+  font-family: inherit;
+}
+
+.leaflet-popup-content-wrapper {
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 20px -2px hsl(280 65% 60% / 0.15);
+}
+
+.leaflet-popup-content {
+  margin: 0.75rem;
+  font-size: 0.875rem;
+}
+
+.leaflet-popup-tip {
+  background: white;
+}
+
+/* ============================================ */
+/* ANIMAÇÕES PREMIUM - Sistema de Conquistas */
+/* ============================================ */
+
+/* Animação de Fade In */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out;
+}
+
+/* Animação de Slide Up */
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slide-up {
+  animation: slideUp 0.6s ease-out forwards;
+}
+
+/* Animação de Gradiente (Background) */
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradient 8s ease infinite;
+}
+
+/* Animação de Pulse Suave */
+@keyframes pulseSoft {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.05);
+  }
+}
+
+.animate-pulse-soft {
+  animation: pulseSoft 2s ease-in-out infinite;
+}
+
+/* Animação de Pulse Discreto (para botão emergência) */
+@keyframes pulseSubtle {
+  0%, 100% {
+    opacity: 1;
+    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4);
+  }
+  50% {
+    opacity: 0.95;
+    box-shadow: 0 0 0 8px rgba(239, 68, 68, 0);
+  }
+}
+
+.animate-pulse-subtle {
+  animation: pulseSubtle 2s ease-in-out infinite;
+}
+
+/* Animação de Bounce Suave */
+@keyframes bounceSoft {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-bounce-soft {
+  animation: bounceSoft 1s ease-in-out infinite;
+}
+
+/* Animação de Shimmer (Loading) */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.animate-shimmer {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+/* Animação de Shake (Erro) */
+@keyframes shake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  10%, 30%, 50%, 70%, 90% {
+    transform: translateX(-5px);
+  }
+  20%, 40%, 60%, 80% {
+    transform: translateX(5px);
+  }
+}
+
+.animate-shake {
+  animation: shake 0.5s;
+}
+
+/* Efeito de Glow ao Hover */
+.hover-glow {
+  transition: all 0.3s ease;
+}
+
+.hover-glow:hover {
+  box-shadow: 0 0 20px rgba(147, 51, 234, 0.5);
+}
+
+/* Transições Suaves */
+.transition-smooth {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.transition-bounce {
+  transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+/* Delays para Animações */
+.delay-75 {
+  animation-delay: 75ms;
+}
+
+.delay-100 {
+  animation-delay: 100ms;
+}
+
+.delay-150 {
+  animation-delay: 150ms;
+}
+
+.delay-200 {
+  animation-delay: 200ms;
+}
+
+.delay-300 {
+  animation-delay: 300ms;
+}
+
+/* ============================================ */
+/* MICRO-INTERAÇÕES */
+/* ============================================ */
+
+/* Botão com efeito de press */
+.btn-press:active {
+  transform: scale(0.95);
+}
+
+/* Card com hover elevado */
+.card-hover {
+  transition: all 0.3s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.2);
+}
+
+/* Badge animado */
+.badge-pulse {
+  animation: pulseSoft 2s ease-in-out infinite;
+}
+
+/* Progress bar smooth */
+.progress-smooth {
+  transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ============================================ */
+/* ESTADOS DE LOADING */
+/* ============================================ */
+
+/* Skeleton loader */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    hsl(var(--muted)) 25%,
+    hsl(var(--muted-foreground) / 0.1) 50%,
+    hsl(var(--muted)) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* Spinner */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin-slow {
+  animation: spin 2s linear infinite;
+}

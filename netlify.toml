@@ -1,0 +1,43 @@
+# Configuração do Netlify para APOIA
+# https://docs.netlify.com/configure-builds/file-based-configuration/
+
+[build]
+  # Comando para build do projeto
+  command = "npm run build"
+  
+  # Pasta onde ficam os arquivos gerados
+  publish = "dist"
+  
+  # Node version (opcional)
+  # NODE_VERSION = "18"
+
+# Redirecionar todas as rotas para index.html (SPA)
+# Evita erro 404 ao recarregar a página
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Headers de segurança (opcional mas recomendado)
+[[headers]]
+  for = "/*"
+  [headers.values]
+    # Segurança básica
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "no-referrer-when-downgrade"
+    
+    # Cache para assets (otimização)
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Cache para HTML (não cachear)
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+# PWA - Service Worker
+[[headers]]
+  for = "/sw.js"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
