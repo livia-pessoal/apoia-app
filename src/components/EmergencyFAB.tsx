@@ -15,9 +15,14 @@ interface EmergencyFABProps {
   userProfile?: "user" | "supporter" | null;
 }
 
-export function EmergencyFAB({ userProfile }: EmergencyFABProps = {}) {
+export function EmergencyFAB({ userProfile }: EmergencyFABProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const currentProfile = userProfile || localStorage.getItem("userProfile") as "user" | "supporter" | null;
+  const currentProfile = userProfile ?? (localStorage.getItem("userProfile") as "user" | "supporter" | null);
+  
+  // Debug
+  console.log('[EmergencyFAB] userProfile prop:', userProfile);
+  console.log('[EmergencyFAB] currentProfile:', currentProfile);
+  console.log('[EmergencyFAB] Mostrar SOS Rede?', currentProfile === "user");
 
   const handleCall180 = () => {
     const phoneNumber = "180";
