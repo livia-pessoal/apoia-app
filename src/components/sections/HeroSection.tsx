@@ -5,6 +5,8 @@ import { supabase } from "@/lib/supabase";
 import heroImage from "@/assets/hero-support.jpg";
 
 export const HeroSection = () => {
+  const userProfile = localStorage.getItem("userProfile") as "user" | "supporter" | null;
+
   const handleCall180 = () => {
     const phoneNumber = "180";
     registerEmergencyCall("180");
@@ -125,14 +127,17 @@ export const HeroSection = () => {
               <Phone className="mr-2 h-4 w-4" />
               Discar 190
             </Button>
-            <Button
-              onClick={handleSOSNetwork}
-              size="lg"
-              className="bg-blue-200/70 hover:bg-blue-300/80 text-blue-700 backdrop-blur-sm border border-blue-300/50 min-w-[160px] h-12 shadow-sm"
-            >
-              <Users className="mr-2 h-4 w-4" />
-              SOS Rede
-            </Button>
+            {/* SOS Rede - apenas para vítimas (users) */}
+            {userProfile === "user" && (
+              <Button
+                onClick={handleSOSNetwork}
+                size="lg"
+                className="bg-blue-200/70 hover:bg-blue-300/80 text-blue-700 backdrop-blur-sm border border-blue-300/50 min-w-[160px] h-12 shadow-sm"
+              >
+                <Users className="mr-2 h-4 w-4" />
+                SOS Rede
+              </Button>
+            )}
           </div>
           <p className="text-xs text-gray-600 mt-2">
             Clique para acesso imediato em situação de risco
