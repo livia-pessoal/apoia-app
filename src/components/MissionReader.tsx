@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { CheckCircle2, Clock, BookOpen, Video, X } from "lucide-react";
+import { CheckCircle2, Clock, BookOpen, Video } from "lucide-react";
 import { Mission } from "@/hooks/useMissions";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
@@ -42,49 +42,37 @@ export const MissionReader = ({ mission, open, onClose, onComplete }: MissionRea
     <Dialog open={open} onOpenChange={onClose}>
       <DialogContent className="max-w-3xl max-h-[90vh] p-0">
         <DialogHeader className="p-6 pb-4 space-y-3">
-          <div className="flex items-start justify-between gap-4">
-            <div className="flex-1">
-              <div className="flex items-center gap-2 mb-2">
-                <Badge variant={isVideo ? "default" : "secondary"}>
-                  {isVideo ? (
-                    <>
-                      <Video className="w-3 h-3 mr-1" />
-                      Vídeo
-                    </>
-                  ) : (
-                    <>
-                      <BookOpen className="w-3 h-3 mr-1" />
-                      Texto
-                    </>
-                  )}
-                </Badge>
-                <Badge variant="outline">
-                  <Clock className="w-3 h-3 mr-1" />
-                  {mission.duration_minutes} min
-                </Badge>
-                {mission.completed && (
-                  <Badge variant="outline" className="text-success border-success">
-                    <CheckCircle2 className="w-3 h-3 mr-1" />
-                    Completo
-                  </Badge>
-                )}
-              </div>
-              <DialogTitle className="text-xl leading-tight pr-8">
-                {mission.title}
-              </DialogTitle>
-              <DialogDescription className="text-sm mt-1">
-                {mission.module_title} · Missão {mission.mission_number}
-              </DialogDescription>
-            </div>
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={onClose}
-              className="shrink-0"
-            >
-              <X className="w-5 h-5" />
-            </Button>
+          <div className="flex items-center gap-2 mb-2">
+            <Badge variant={isVideo ? "default" : "secondary"}>
+              {isVideo ? (
+                <>
+                  <Video className="w-3 h-3 mr-1" />
+                  Vídeo
+                </>
+              ) : (
+                <>
+                  <BookOpen className="w-3 h-3 mr-1" />
+                  Texto
+                </>
+              )}
+            </Badge>
+            <Badge variant="outline">
+              <Clock className="w-3 h-3 mr-1" />
+              {mission.duration_minutes} min
+            </Badge>
+            {mission.completed && (
+              <Badge variant="outline" className="text-success border-success">
+                <CheckCircle2 className="w-3 h-3 mr-1" />
+                Completo
+              </Badge>
+            )}
           </div>
+          <DialogTitle className="text-xl leading-tight">
+            {mission.title}
+          </DialogTitle>
+          <DialogDescription className="text-sm mt-1">
+            {mission.module_title} · Missão {mission.mission_number}
+          </DialogDescription>
         </DialogHeader>
 
         <ScrollArea className="max-h-[calc(90vh-200px)] px-6">

@@ -135,34 +135,34 @@ INSERT INTO missions_content (module_number, module_title, mission_number, title
 
 INSERT INTO missions_content (module_number, module_title, mission_number, title, video_url, video_platform, content_type, duration_minutes) VALUES
 (1, 'Reconhecendo os Sinais da Violência', 41, 'Lei Maria da Penha: conheça seus direitos e como denunciar', 
-'https://www.youtube.com/watch?v=lCcS8bTL3HA', 'youtube', 'video', 10),
+'https://www.youtube.com/watch?v=lCcS8bTL3HA', 'youtube', 'video', 2),
 
 (1, 'Reconhecendo os Sinais da Violência', 42, 'A violência contra a mulher vai muito além da agressão física', 
-'https://www.youtube.com/watch?v=xKfwHuE7d10', 'youtube', 'video', 5),
+'https://www.youtube.com/watch?v=xKfwHuE7d10', 'youtube', 'video', 1),
 
 (2, 'Reagindo e Buscando Ajuda', 43, 'A HISTÓRIA REAL POR TRÁS DA LEI MARIA DA PENHA', 
-'https://www.youtube.com/watch?v=8Lw-vwkn_g0', 'youtube', 'video', 15),
+'https://www.youtube.com/watch?v=8Lw-vwkn_g0', 'youtube', 'video', 14),
 
 (2, 'Reagindo e Buscando Ajuda', 44, 'Combate à Violência Contra Mulheres e Violência Doméstica', 
-'https://www.youtube.com/watch?v=Ew-VruAckjs', 'youtube', 'video', 8),
+'https://www.youtube.com/watch?v=Ew-VruAckjs', 'youtube', 'video', 2),
 
 (3, 'Autoconhecimento e Fortalecimento', 45, 'Violência psicológica contra a mulher é crime', 
-'https://www.youtube.com/watch?v=zoBqruxyGS4', 'youtube', 'video', 3),
+'https://www.youtube.com/watch?v=zoBqruxyGS4', 'youtube', 'video', 1),
 
 (3, 'Autoconhecimento e Fortalecimento', 46, 'Tipos de violência contra as mulheres', 
-'https://www.youtube.com/watch?v=Ly2wv-uU8gY', 'youtube', 'video', 7),
+'https://www.youtube.com/watch?v=Ly2wv-uU8gY', 'youtube', 'video', 2),
 
 (4, 'Conhecendo seus Direitos', 47, 'Um alerta sobre a violência psicológica contra a mulher', 
-'https://www.youtube.com/watch?v=0UWliMyKCyY', 'youtube', 'video', 4),
+'https://www.youtube.com/watch?v=0UWliMyKCyY', 'youtube', 'video', 1),
 
 (4, 'Conhecendo seus Direitos', 48, 'Curta-metragem "Violência contra a mulher"', 
-'https://www.youtube.com/watch?v=JoBkcrAKrRw', 'youtube', 'video', 12),
+'https://www.youtube.com/watch?v=JoBkcrAKrRw', 'youtube', 'video', 11),
 
 (4, 'Conhecendo seus Direitos', 49, 'Fale sem medo - violência doméstica', 
-'https://www.youtube.com/watch?v=0mVGbFG0KU8', 'youtube', 'video', 6),
+'https://www.youtube.com/watch?v=0mVGbFG0KU8', 'youtube', 'video', 2),
 
 (4, 'Conhecendo seus Direitos', 50, 'Curta Documentário sobre a Lei Maria da Penha', 
-'https://www.youtube.com/watch?v=tuT__DRuG-U', 'youtube', 'video', 20);
+'https://www.youtube.com/watch?v=tuT__DRuG-U', 'youtube', 'video', 19);
 
 -- ============================================
 -- FIM DA MIGRATION

@@ -641,29 +641,6 @@ export function SupportNetwork({ userProfile }: SupportNetworkProps) {
         )}
       </Card>
 
-      {/* ONGs Disponíveis */}
-      {organizations.length > 0 && (
-        <Card className="p-4">
-          <h3 className="font-semibold mb-4">ONGs e Serviços Disponíveis</h3>
-          <div className="space-y-2">
-            {organizations.map((org) => (
-              <div key={org.id} className="flex justify-between items-center py-2 border-b last:border-0">
-                <div>
-                  <p className="font-medium text-sm">{org.name}</p>
-                  <p className="text-xs text-muted-foreground">{org.type === "ong" ? "ONG" : "Serviço"}</p>
-                </div>
-                {org.phone && (
-                  <Button variant="outline" size="sm">
-                    <Phone className="w-3 h-3 mr-1" />
-                    {org.phone}
-                  </Button>
-                )}
-              </div>
-            ))}
-          </div>
-        </Card>
-      )}
-
       {/* Dialog de Adicionar/Editar Contato */}
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
         <DialogContent className="max-w-md">

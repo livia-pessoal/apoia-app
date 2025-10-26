@@ -13,6 +13,7 @@ import { supabase } from "@/lib/supabase";
 
 export function EmergencyFAB() {
   const [isOpen, setIsOpen] = useState(false);
+  const userProfile = localStorage.getItem("userProfile") as "user" | "supporter" | null;
 
   const handleCall180 = () => {
     const phoneNumber = "180";
@@ -150,17 +151,21 @@ export function EmergencyFAB() {
           </div>
         </DropdownMenuItem>
 
-        <DropdownMenuSeparator />
-
-        <DropdownMenuItem onClick={handleSOSNetwork} className="cursor-pointer hover:bg-blue-50">
-          <Users className="mr-2 h-4 w-4 text-blue-500" />
-          <div className="flex-1">
-            <p className="font-medium text-gray-700">SOS Rede de Apoio</p>
-            <p className="text-xs text-gray-500">
-              Alertar meus contatos
-            </p>
-          </div>
-        </DropdownMenuItem>
+        {/* SOS Rede - apenas para vítimas (users) */}
+        {userProfile === "user" && (
+          <>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem onClick={handleSOSNetwork} className="cursor-pointer hover:bg-blue-50">
+              <Users className="mr-2 h-4 w-4 text-blue-500" />
+              <div className="flex-1">
+                <p className="font-medium text-gray-700">SOS Rede de Apoio</p>
+                <p className="text-xs text-gray-500">
+                  Alertar meus contatos
+                </p>
+              </div>
+            </DropdownMenuItem>
+          </>
+        )}
       </DropdownMenuContent>
     </DropdownMenu>
   );
