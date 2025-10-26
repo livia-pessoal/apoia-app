@@ -1,7 +1,6 @@
 import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Logo } from "@/components/Logo";
 
 const Calculator = () => {
   const [display, setDisplay] = useState("0");
@@ -277,13 +276,6 @@ const Calculator = () => {
           >
             .
           </Button>
-        </div>
-
-        <div className="flex items-center justify-center gap-2 mt-4">
-          <Logo size="xs" className="opacity-20" />
-          <p className="text-center text-xs text-zinc-500">
-            v2.1
-          </p>
         </div>
       </div>
     </div>
