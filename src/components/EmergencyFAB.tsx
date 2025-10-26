@@ -11,9 +11,13 @@ import { Phone, ShieldAlert, Users, AlertCircle } from "lucide-react";
 import { toast } from "sonner";
 import { supabase } from "@/lib/supabase";
 
-export function EmergencyFAB() {
+interface EmergencyFABProps {
+  userProfile?: "user" | "supporter" | null;
+}
+
+export function EmergencyFAB({ userProfile }: EmergencyFABProps = {}) {
   const [isOpen, setIsOpen] = useState(false);
-  const userProfile = localStorage.getItem("userProfile") as "user" | "supporter" | null;
+  const currentProfile = userProfile || localStorage.getItem("userProfile") as "user" | "supporter" | null;
 
   const handleCall180 = () => {
     const phoneNumber = "180";
@@ -152,7 +156,7 @@ export function EmergencyFAB() {
         </DropdownMenuItem>
 
         {/* SOS Rede - apenas para vítimas (users) */}
-        {userProfile === "user" && (
+        {currentProfile === "user" && (
           <>
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={handleSOSNetwork} className="cursor-pointer hover:bg-blue-50">

@@ -633,7 +633,7 @@ const Index = () => {
       </div>
 
       {/* Botão Flutuante de Emergência (visível em todas as abas) */}
-      <EmergencyFAB />
+      <EmergencyFAB userProfile={userProfile} />
     </div>
   );
 };
