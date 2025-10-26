@@ -160,7 +160,7 @@ export function EmergencyFAB({ userProfile }: EmergencyFABProps) {
           </div>
         </DropdownMenuItem>
 
-        {/* SOS Rede - apenas para vítimas (users) */}
+        {/* SOS Rede - apenas para vítimas (users) - v2 */}
         {currentProfile === "user" && (
           <>
             <DropdownMenuSeparator />
