@@ -11,6 +11,11 @@
   # Node version (opcional)
   # NODE_VERSION = "18"
 
+# Configuração das Netlify Functions
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+
 # Redirecionar todas as rotas para index.html (SPA)
 # Evita erro 404 ao recarregar a página
 [[redirects]]

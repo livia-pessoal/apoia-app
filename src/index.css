@@ -126,8 +126,26 @@ All colors MUST be HSL.
     @apply border-border;
   }
 
+  /* iOS Safari: Correções para texto cortado */
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
   body {
     @apply bg-background text-foreground;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Ajuste de line-height padrão para evitar cortes no iOS */
+  h1, h2, h3, h4, h5, h6, button, label {
+    line-height: 1.3;
+  }
+
+  p, span, div {
+    line-height: 1.5;
   }
 }
 

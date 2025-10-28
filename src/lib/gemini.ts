@@ -24,6 +24,7 @@ interface AnalysisResult {
 
 /**
  * Analisa cadastro de apoiadora usando Gemini AI
+ * Timeout de 8s para evitar travamento no iOS/Safari
  */
 export async function analyzeSupporterProfile(data: SupporterData): Promise<AnalysisResult> {
   // Se não tiver API key, sempre retorna REVIEW (revisão manual)
@@ -35,6 +36,9 @@ export async function analyzeSupporterProfile(data: SupporterData): Promise<Anal
   }
 
   try {
+    // AbortController para timeout
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 8000); // 8 segundos
 
     const prompt = `
 Você é um sistema de análise de cadastros para uma plataforma de apoio a mulheres vítimas de violência.
@@ -87,6 +91,8 @@ RAZÃO: Psicóloga com experiência clara e motivação genuína
       contents: prompt,
     });
 
+    clearTimeout(timeoutId); // Limpar timeout após resposta bem-sucedida
+
     const responseText = response.text;
 
     console.log('🤖 Resposta Gemini:', responseText);
@@ -107,8 +113,18 @@ RAZÃO: Psicóloga com experiência clara e motivação genuína
       reason: reasonMatch?.[1]?.trim() || 'Análise concluída'
     };
 
-  } catch (error) {
+  } catch (error: any) {
     console.error('❌ Erro ao analisar com Gemini:', error);
+    
+    // Se for timeout/abort, retornar REVIEW com mensagem específica
+    if (error.name === 'AbortError' || error.message?.includes('abort')) {
+      console.warn('⏱️ Timeout na análise IA - retornando REVIEW');
+      return {
+        decision: 'REVIEW',
+        reason: 'Timeout na análise - revisão manual necessária'
+      };
+    }
+    
     return {
       decision: 'REVIEW',
       reason: 'Erro na análise - revisão manual necessária'

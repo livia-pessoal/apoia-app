@@ -24,11 +24,29 @@ const SupporterLogin = () => {
     try {
       console.log('🔐 Tentando login com:', email.trim());
       
-      // 1. Tentar fazer login no Supabase Auth
-      const { data: authData, error: authError } = await supabase.auth.signInWithPassword({
-        email: email.trim(),
-        password: password.trim(),
-      });
+      // 1. Tentar fazer login no Supabase Auth (timeout 15s para iOS)
+      let authData, authError;
+      try {
+        const result = await Promise.race([
+          supabase.auth.signInWithPassword({
+            email: email.trim(),
+            password: password.trim(),
+          }),
+          new Promise<any>((_, reject) => 
+            setTimeout(() => reject(new Error('LoginTimeout')), 15000)
+          )
+        ]);
+        authData = result.data;
+        authError = result.error;
+      } catch (err: any) {
+        if (err.message === 'LoginTimeout') {
+          console.error('⏱️ Timeout no login');
+          toast.error('Conexão lenta no iPhone. Tente novamente.');
+          setLoading(false);
+          return;
+        }
+        throw err;
+      }
 
       if (authError) {
         console.error('❌ Erro no login:', authError);
@@ -39,13 +57,32 @@ const SupporterLogin = () => {
       
       console.log('✅ Login Auth OK, user:', authData.user?.email);
 
-      // 2. Buscar perfil da apoiadora
-      const { data: profile, error: profileError } = await supabase
-        .from('profiles')
-        .select('*')
-        .eq('auth_user_id', authData.user.id)
-        .eq('user_type', 'supporter')
-        .single();
+      // 2. Buscar perfil da apoiadora (timeout 10s para iOS)
+      let profile, profileError;
+      try {
+        const result = await Promise.race([
+          supabase
+            .from('profiles')
+            .select('*')
+            .eq('auth_user_id', authData.user.id)
+            .eq('user_type', 'supporter')
+            .single(),
+          new Promise<any>((_, reject) => 
+            setTimeout(() => reject(new Error('ProfileTimeout')), 10000)
+          )
+        ]);
+        profile = result.data;
+        profileError = result.error;
+      } catch (err: any) {
+        if (err.message === 'ProfileTimeout') {
+          console.error('⏱️ Timeout ao buscar perfil');
+          toast.error('Conexão instável. Tente novamente.');
+          await supabase.auth.signOut();
+          setLoading(false);
+          return;
+        }
+        throw err;
+      }
 
       if (profileError || !profile) {
         console.error('Erro ao buscar perfil:', profileError);

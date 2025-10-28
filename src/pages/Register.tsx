@@ -8,7 +8,6 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } f
 import { Heart, Shield, Copy, KeyRound } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { toast } from "sonner";
-import { analyzeSupporterProfile } from "@/lib/gemini";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -51,36 +50,81 @@ const Register = () => {
         return;
       }
 
-      // Análise com IA
+      // Análise com IA via Netlify Function (evita CORS/ITP no iOS)
       setAnalyzingIA(true);
       toast.info("🤖 Analisando seu cadastro...", { duration: 2000 });
 
-      const analysis = await analyzeSupporterProfile({
-        displayName: displayName.trim(),
-        email: email.trim(),
-        phone: phone.trim(),
-        motivation: motivation.trim(),
-        causes: causesText.trim()
-      });
+      let analysis;
+      try {
+        // Chamar função serverless do Netlify (timeout de 15s)
+        const response = await Promise.race([
+          fetch('/.netlify/functions/ai-approval', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              displayName: displayName.trim(),
+              email: email.trim(),
+              phone: phone.trim(),
+              motivation: motivation.trim(),
+              causes: causesText.trim()
+            })
+          }),
+          new Promise<Response>((_, reject) => 
+            setTimeout(() => reject(new Error('Timeout')), 15000)
+          )
+        ]);
 
-      setAnalyzingIA(false);
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}`);
+        }
+
+        analysis = await response.json();
+      } catch (err: any) {
+        console.warn('⏱️ Timeout ou erro na análise IA, usando REVIEW como fallback', err);
+        analysis = {
+          decision: 'REVIEW',
+          reason: 'Análise demorou muito - revisão manual'
+        };
+      } finally {
+        setAnalyzingIA(false);
+      }
       console.log('📊 Análise IA:', analysis);
 
-      // 1. Criar conta no Supabase Auth
+      // 1. Criar conta no Supabase Auth (timeout de 15s para iOS)
       const { supabase } = await import('@/lib/supabase');
       
       console.log('📝 Criando conta para:', email.trim());
       
-      const { data: authData, error: authError } = await supabase.auth.signUp({
-        email: email.trim(),
-        password: password.trim(),
-        options: {
-          emailRedirectTo: undefined, // Desabilitar confirmação de email
-          data: {
-            display_name: displayName.trim(),
-          }
+      let authData, authError;
+      try {
+        // Timeout defensivo: 15 segundos para signUp
+        const result = await Promise.race([
+          supabase.auth.signUp({
+            email: email.trim(),
+            password: password.trim(),
+            options: {
+              emailRedirectTo: undefined,
+              data: {
+                display_name: displayName.trim(),
+              }
+            }
+          }),
+          new Promise<any>((_, reject) => 
+            setTimeout(() => reject(new Error('AuthTimeout')), 15000)
+          )
+        ]);
+        authData = result.data;
+        authError = result.error;
+      } catch (err: any) {
+        if (err.message === 'AuthTimeout') {
+          console.error('⏱️ Timeout ao criar conta no Supabase');
+          toast.error('Conexão lenta. Tente novamente em alguns instantes.');
+          return;
         }
-      });
+        authError = err;
+      }
 
       if (authError) {
         console.error('❌ Erro ao criar conta:', authError);
