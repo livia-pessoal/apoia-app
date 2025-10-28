@@ -176,7 +176,7 @@ export function InteractiveMap({ open, onClose }: InteractiveMapProps) {
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
             <MapPin className="w-5 h-5 text-primary" />
-            Mapa de Delegacias Próximas
+            Rede de Apoio Próxima
           </DialogTitle>
         </DialogHeader>
 
@@ -280,8 +280,11 @@ export function InteractiveMap({ open, onClose }: InteractiveMapProps) {
                 >
                   <Popup>
                     <div className="min-w-[200px]">
-                      <h3 className="font-semibold mb-2">{station.name}</h3>
-                      <p className="text-xs text-muted-foreground mb-2">
+                      <h3 className="font-semibold mb-1">{station.name}</h3>
+                      <Badge variant="outline" className="text-xs mb-2">
+                        {station.type}
+                      </Badge>
+                      <p className="text-xs text-muted-foreground mb-2 mt-2">
                         {station.address}
                       </p>
                       {userLocation && (
@@ -326,17 +329,17 @@ export function InteractiveMap({ open, onClose }: InteractiveMapProps) {
             </MapContainer>
           </div>
 
-          {/* Lista de delegacias */}
+          {/* Lista de locais de apoio */}
           <div className="space-y-3 max-h-[200px] overflow-y-auto">
             <h3 className="font-semibold text-sm">
-              Delegacias no raio de {radius / 1000}km ({filteredStations.length})
+              Locais de apoio no raio de {radius / 1000}km ({filteredStations.length})
             </h3>
 
             {filteredStations.length === 0 ? (
               <Card className="p-6 text-center">
                 <MapPin className="w-8 h-8 mx-auto text-muted-foreground mb-2" />
                 <p className="text-sm text-muted-foreground">
-                  Nenhuma delegacia encontrada neste raio
+                  Nenhum local de apoio encontrado neste raio
                 </p>
                 <p className="text-xs text-muted-foreground mt-1">
                   Tente aumentar o raio de busca
@@ -351,7 +354,12 @@ export function InteractiveMap({ open, onClose }: InteractiveMapProps) {
                 >
                   <div className="flex items-start justify-between">
                     <div className="flex-1">
-                      <h4 className="font-semibold text-sm">{station.name}</h4>
+                      <div className="flex items-center gap-2 mb-1">
+                        <h4 className="font-semibold text-sm">{station.name}</h4>
+                        <Badge variant="outline" className="text-xs">
+                          {station.type}
+                        </Badge>
+                      </div>
                       <p className="text-xs text-muted-foreground">
                         {station.address}
                       </p>

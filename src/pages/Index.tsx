@@ -19,7 +19,7 @@ import { MissionReader } from "@/components/MissionReader";
 import { ProgressStats } from "@/components/ProgressStats";
 import { IncidentReport } from "@/components/IncidentReport";
 import { PoliceMap } from "@/components/PoliceMap";
-import { InteractiveMapSimple } from "@/components/InteractiveMapSimple";
+import { InteractiveMap } from "@/components/InteractiveMap";
 import { AnonymousChat } from "@/components/AnonymousChat";
 import { SupporterDashboard } from "@/components/SupporterDashboard";
 import { SupportNetwork } from "@/components/SupportNetwork";
@@ -545,7 +545,7 @@ const Index = () => {
                     <MapPin className="w-5 h-5 text-primary" />
                     <div>
                       <h3 className="font-semibold">🗺️ Mapa Interativo</h3>
-                      <p className="text-sm text-muted-foreground">Veja delegacias no mapa com sua localização</p>
+                      <p className="text-sm text-muted-foreground">Delegacias, casas de acolhimento e centros de apoio próximos</p>
                     </div>
                   </div>
                 </Card>
@@ -593,7 +593,7 @@ const Index = () => {
               {/* Modais de Recursos de Emergência */}
               <IncidentReport open={incidentReportOpen} onClose={() => setIncidentReportOpen(false)} />
               <PoliceMap open={policeMapOpen} onClose={() => setPoliceMapOpen(false)} />
-              <InteractiveMapSimple open={interactiveMapOpen} onClose={() => setInteractiveMapOpen(false)} />
+              <InteractiveMap open={interactiveMapOpen} onClose={() => setInteractiveMapOpen(false)} />
               <AnonymousChat 
                 open={anonymousChatOpen} 
                 onClose={() => {
