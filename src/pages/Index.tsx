@@ -19,7 +19,7 @@ import { MissionReader } from "@/components/MissionReader";
 import { ProgressStats } from "@/components/ProgressStats";
 import { IncidentReport } from "@/components/IncidentReport";
 import { PoliceMap } from "@/components/PoliceMap";
-import { InteractiveMap } from "@/components/InteractiveMap";
+import { InteractiveMapSimple } from "@/components/InteractiveMapSimple";
 import { AnonymousChat } from "@/components/AnonymousChat";
 import { SupporterDashboard } from "@/components/SupporterDashboard";
 import { SupportNetwork } from "@/components/SupportNetwork";
@@ -593,7 +593,7 @@ const Index = () => {
               {/* Modais de Recursos de Emergência */}
               <IncidentReport open={incidentReportOpen} onClose={() => setIncidentReportOpen(false)} />
               <PoliceMap open={policeMapOpen} onClose={() => setPoliceMapOpen(false)} />
-              <InteractiveMap open={interactiveMapOpen} onClose={() => setInteractiveMapOpen(false)} />
+              <InteractiveMapSimple open={interactiveMapOpen} onClose={() => setInteractiveMapOpen(false)} />
               <AnonymousChat 
                 open={anonymousChatOpen} 
                 onClose={() => {

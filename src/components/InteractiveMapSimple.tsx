@@ -143,7 +143,7 @@ export function InteractiveMapSimple({ open, onClose }: InteractiveMapSimpleProp
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
             <MapPin className="w-5 h-5 text-primary" />
-            Delegacias Próximas
+            Rede de Apoio Próxima
           </DialogTitle>
         </DialogHeader>
 
@@ -198,33 +198,42 @@ export function InteractiveMapSimple({ open, onClose }: InteractiveMapSimpleProp
             </Card>
           )}
 
-          {/* INFO: Mapa será adicionado aqui quando Leaflet funcionar */}
-          <Card className="p-8 bg-gradient-to-br from-primary/5 to-primary/10 border-primary/20">
-            <div className="text-center space-y-3">
-              <MapPin className="w-16 h-16 mx-auto text-primary" />
-              <h3 className="font-semibold text-lg">Mapa Interativo (Em Breve)</h3>
-              <p className="text-sm text-muted-foreground">
-                O mapa completo com OpenStreetMap será carregado aqui
-              </p>
-              {userLocation && (
-                <div className="text-xs text-muted-foreground">
-                  📍 Sua localização: {userLocation.lat.toFixed(4)}, {userLocation.lng.toFixed(4)}
-                </div>
-              )}
-            </div>
-          </Card>
+          {/* Informação de localização */}
+          {userLocation && (
+            <Card className="p-4 bg-gradient-to-br from-primary/5 to-primary/10 border-primary/20">
+              <div className="text-center space-y-2">
+                <MapPin className="w-12 h-12 mx-auto text-primary" />
+                <h3 className="font-semibold text-sm">📍 Sua Localização Detectada</h3>
+                <p className="text-xs text-muted-foreground">
+                  Mostrando locais de apoio próximos a você
+                </p>
+              </div>
+            </Card>
+          )}
+          
+          {!userLocation && !loading && (
+            <Card className="p-4 bg-yellow-500/10 border-yellow-500/20">
+              <div className="text-center space-y-2">
+                <MapPin className="w-12 h-12 mx-auto text-yellow-600" />
+                <h3 className="font-semibold text-sm">📍 Localização Padrão (São Paulo)</h3>
+                <p className="text-xs text-muted-foreground">
+                  Para ver locais próximos, permita acesso à sua localização
+                </p>
+              </div>
+            </Card>
+          )}
 
-          {/* Lista de delegacias */}
+          {/* Lista de locais de apoio */}
           <div className="space-y-3">
             <h3 className="font-semibold text-sm">
-              Delegacias no raio de {radius / 1000}km ({filteredStations.length})
+              Locais de apoio no raio de {radius / 1000}km ({filteredStations.length})
             </h3>
 
             {filteredStations.length === 0 ? (
               <Card className="p-6 text-center">
                 <MapPin className="w-8 h-8 mx-auto text-muted-foreground mb-2" />
                 <p className="text-sm text-muted-foreground">
-                  Nenhuma delegacia encontrada neste raio
+                  Nenhum local de apoio encontrado neste raio
                 </p>
                 <p className="text-xs text-muted-foreground mt-1">
                   Tente aumentar o raio de busca
@@ -241,6 +250,9 @@ export function InteractiveMapSimple({ open, onClose }: InteractiveMapSimpleProp
                       <div className="flex items-center gap-2 mb-1">
                         <MapPin className="w-4 h-4 text-primary" />
                         <h4 className="font-semibold">{station.name}</h4>
+                        <Badge variant="outline" className="text-xs">
+                          {station.type}
+                        </Badge>
                       </div>
                       <p className="text-sm text-muted-foreground mb-2">
                         {station.address}
