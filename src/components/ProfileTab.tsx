@@ -7,14 +7,26 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import { Label } from "@/components/ui/label";
-import { Switch } from "@/components/ui/switch";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
+import { 
+  Dialog, 
+  DialogContent, 
+  DialogHeader, 
+  DialogTitle, 
+  DialogFooter, 
+  DialogDescription,
+  DialogTrigger 
 } from "@/components/ui/dialog";
+import { Switch } from "@/components/ui/switch";
+import { 
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 import {
   User,
   Edit,
@@ -82,6 +94,7 @@ export const ProfileTab = () => {
   const [state, setState] = useState("");
   const [avatarColor, setAvatarColor] = useState("purple");
   const [privacyMode, setPrivacyMode] = useState("normal");
+  const [stealthDialogOpen, setStealthDialogOpen] = useState(false);
 
   useEffect(() => {
     loadProfile();
@@ -528,49 +541,79 @@ export const ProfileTab = () => {
             />
           </div>
 
-          {/* Modo Privacidade Toggle */}
-          <div className="flex items-center justify-between p-3 rounded-lg hover:bg-muted/50 transition-colors">
-            <div className="flex items-center gap-3">
+          {/* Modo Discreto - Botão com confirmação */}
+          <div className="p-3 rounded-lg border border-primary/20 bg-primary/5">
+            <div className="flex items-center gap-3 mb-3">
               <div className="bg-primary/10 p-2 rounded-full">
                 <Shield className="w-4 h-4 text-primary" />
               </div>
-              <div>
+              <div className="flex-1">
                 <p className="text-sm font-medium">Modo Discreto</p>
                 <p className="text-xs text-muted-foreground">
                   {privacyMode === "stealth" 
-                    ? "🔒 App disfarçado como receitas"
-                    : "Disfarçar app como receitas para proteção"}
+                    ? "🔒 Ativado - App disfarçado"
+                    : "Disfarçar app para proteção"}
                 </p>
               </div>
             </div>
-            <Switch
-              checked={privacyMode === "stealth"}
-              onCheckedChange={async (checked) => {
-                const newMode = checked ? "stealth" : "normal";
-                try {
-                  await supabase
-                    .from("profiles")
-                    .update({ privacy_mode: newMode })
-                    .eq("id", profile.id);
-                  
-                  setPrivacyMode(newMode);
-                  
-                  // Disparar evento customizado para notificar outras partes do app
-                  window.dispatchEvent(new CustomEvent("stealthModeChanged", { 
-                    detail: { enabled: checked } 
-                  }));
-                  
-                  toast.success(
-                    newMode === "stealth" 
-                      ? "🔒 Modo discreto ativado! Toque 2x no 'v1.2' para voltar" 
-                      : "✨ Modo normal ativado"
-                  );
-                } catch (error) {
-                  toast.error("Erro ao atualizar privacidade");
-                }
-              }}
-            />
+            <Button
+              variant={privacyMode === "stealth" ? "destructive" : "default"}
+              size="sm"
+              className="w-full"
+              onClick={() => setStealthDialogOpen(true)}
+            >
+              {privacyMode === "stealth" ? "Desativar Modo Discreto" : "Ativar Modo Discreto"}
+            </Button>
           </div>
+
+          {/* AlertDialog de Confirmação */}
+          <AlertDialog open={stealthDialogOpen} onOpenChange={setStealthDialogOpen}>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>
+                  {privacyMode === "stealth" 
+                    ? "Desativar Modo Discreto?" 
+                    : "Ativar Modo Discreto?"}
+                </AlertDialogTitle>
+                <AlertDialogDescription>
+                  {privacyMode === "stealth" 
+                    ? "O app voltará ao visual normal do Apoia. Você pode reativar quando quiser."
+                    : "O app será disfarçado como um aplicativo de receitas culinárias. Para voltar ao normal, clique 2x no texto 'v1.2' no canto superior ou volte aqui."}
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                <AlertDialogAction
+                  onClick={async () => {
+                    const newMode = privacyMode === "stealth" ? "normal" : "stealth";
+                    try {
+                      await supabase
+                        .from("profiles")
+                        .update({ privacy_mode: newMode })
+                        .eq("id", profile.id);
+                      
+                      setPrivacyMode(newMode);
+                      
+                      // Disparar evento customizado
+                      window.dispatchEvent(new CustomEvent("stealthModeChanged", { 
+                        detail: { enabled: newMode === "stealth" } 
+                      }));
+                      
+                      toast.success(
+                        newMode === "stealth" 
+                          ? "🔒 Modo discreto ativado!" 
+                          : "✨ Modo normal ativado"
+                      );
+                    } catch (error) {
+                      toast.error("Erro ao atualizar privacidade");
+                    }
+                  }}
+                >
+                  {privacyMode === "stealth" ? "Sim, desativar" : "Sim, ativar"}
+                </AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
         </div>
       </Card>
 
