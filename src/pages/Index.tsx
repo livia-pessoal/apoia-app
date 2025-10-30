@@ -30,6 +30,8 @@ import AchievementsTab from "@/components/AchievementsTabMelhorado";
 import { AnonymousPosts } from "@/components/AnonymousPosts";
 import { EmergencyFAB } from "@/components/EmergencyFAB";
 import { Logo } from "@/components/Logo";
+import { StealthMode } from "@/components/StealthMode";
+import { useShakeDetection } from "@/hooks/useShakeDetection";
 
 const Index = () => {
   const navigate = useNavigate();
@@ -51,6 +53,9 @@ const Index = () => {
   const [hasActiveChat, setHasActiveChat] = useState(false);
   const [activeChatStatus, setActiveChatStatus] = useState<'waiting' | 'active' | null>(null);
   const [hasUnreadMessages, setHasUnreadMessages] = useState(false);
+  
+  // Modo Discreto
+  const [stealthMode, setStealthMode] = useState(false);
   
   const stats = getStats();
   
@@ -84,6 +89,70 @@ const Index = () => {
       }
     }
   }, [navigate, anonymousChatOpen]);
+
+  // Verificar modo discreto no perfil
+  useEffect(() => {
+    const checkStealthMode = async () => {
+      const profileId = localStorage.getItem("profile_id");
+      if (!profileId) return;
+
+      try {
+        const { data } = await supabase
+          .from("profiles")
+          .select("privacy_mode")
+          .eq("id", profileId)
+          .single();
+
+        if (data?.privacy_mode === "stealth") {
+          setStealthMode(true);
+        }
+      } catch (error) {
+        console.error("Erro ao verificar modo discreto:", error);
+      }
+    };
+
+    checkStealthMode();
+  }, []);
+
+  // Alterar título da página baseado no modo discreto
+  useEffect(() => {
+    if (stealthMode) {
+      document.title = "Minhas Receitas - Receitas Culinárias";
+    } else {
+      document.title = "Apoia - Rede de Apoio";
+    }
+
+    return () => {
+      document.title = "Apoia - Rede de Apoio";
+    };
+  }, [stealthMode]);
+
+  // Detecção de shake para ativar/desativar modo discreto
+  useShakeDetection(() => {
+    setStealthMode((prev) => {
+      const newMode = !prev;
+      toast.success(
+        newMode 
+          ? "🔒 Modo discreto ativado (agite novamente para desativar)" 
+          : "✨ Modo normal ativado",
+        { duration: 2000 }
+      );
+      return newMode;
+    });
+  });
+
+  // Listener para mudança de modo discreto via ProfileTab
+  useEffect(() => {
+    const handleStealthModeChange = (event: any) => {
+      setStealthMode(event.detail.enabled);
+    };
+
+    window.addEventListener("stealthModeChanged", handleStealthModeChange);
+    
+    return () => {
+      window.removeEventListener("stealthModeChanged", handleStealthModeChange);
+    };
+  }, []);
 
   // Função para verificar chat ativo
   const checkActiveChat = async () => {
@@ -206,14 +275,22 @@ const Index = () => {
   };
 
   const handleQuickExit = () => {
-    navigate("/");
+    // Limpar dados
     localStorage.removeItem("userProfile");
     localStorage.removeItem("display_name");
     localStorage.removeItem("profile_id");
+    
+    // Redirecionar para site neutro
+    window.location.href = "https://www.google.com/search?q=receitas+culinarias";
   };
 
   if (!userProfile) {
     return null;
+  }
+
+  // Se modo discreto ativado, mostrar interface disfarçada
+  if (stealthMode) {
+    return <StealthMode onExit={() => setStealthMode(false)} />;
   }
 
   return (

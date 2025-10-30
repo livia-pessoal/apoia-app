@@ -538,8 +538,8 @@ export const ProfileTab = () => {
                 <p className="text-sm font-medium">Modo Discreto</p>
                 <p className="text-xs text-muted-foreground">
                   {privacyMode === "stealth" 
-                    ? "Informações ocultas, máxima privacidade"
-                    : "Perfil visível normalmente"}
+                    ? "🔒 App disfarçado como receitas. Agite para alternar"
+                    : "Disfarçar app para proteção rápida"}
                 </p>
               </div>
             </div>
@@ -554,7 +554,17 @@ export const ProfileTab = () => {
                     .eq("id", profile.id);
                   
                   setPrivacyMode(newMode);
-                  toast.success(newMode === "stealth" ? "Modo discreto ativado" : "Modo normal ativado");
+                  
+                  // Disparar evento customizado para notificar outras partes do app
+                  window.dispatchEvent(new CustomEvent("stealthModeChanged", { 
+                    detail: { enabled: checked } 
+                  }));
+                  
+                  toast.success(
+                    newMode === "stealth" 
+                      ? "🔒 Modo discreto ativado! Agite o celular para alternar rapidamente" 
+                      : "✨ Modo normal ativado"
+                  );
                 } catch (error) {
                   toast.error("Erro ao atualizar privacidade");
                 }
