@@ -87,7 +87,7 @@ export const HeroSection = () => {
   };
 
   return (
-    <section className="relative min-h-[60vh] flex items-center justify-center overflow-hidden bg-gradient-hero">
+    <section className="relative min-h-[65vh] flex items-center justify-center overflow-hidden bg-gradient-hero">
       <div 
         className="absolute inset-0 opacity-20"
         style={{
@@ -96,35 +96,35 @@ export const HeroSection = () => {
           backgroundPosition: 'center',
         }}
       />
-      <div className="relative z-10 text-center px-6 py-12 max-w-3xl mx-auto">
-        <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-primary bg-clip-text text-transparent animate-in fade-in slide-in-from-bottom-4 duration-700">
+      <div className="relative z-10 text-center px-6 py-16 max-w-4xl mx-auto">
+        <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-8 bg-gradient-primary bg-clip-text text-transparent animate-in fade-in slide-in-from-bottom-4 duration-700 leading-tight">
           Bem-vinda ao Apoia
         </h1>
-        <p className="text-xl md:text-2xl text-foreground/80 animate-in fade-in slide-in-from-bottom-6 duration-700 delay-150">
+        <p className="text-lg md:text-xl lg:text-2xl text-foreground/70 animate-in fade-in slide-in-from-bottom-6 duration-700 delay-150 max-w-2xl mx-auto leading-relaxed">
           Uma rede de apoio gamificada para fortalecer mulheres e combater a violência
         </p>
 
         {/* Botões de Emergência Rápida */}
-        <div className="mt-8 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-300">
-          <p className="text-sm text-rose-600 font-medium mb-3 flex items-center justify-center gap-2">
-            <span className="inline-block w-1.5 h-1.5 bg-rose-400 rounded-full"></span>
-            Acesso Rápido
-          </p>
-          <div className="flex flex-col sm:flex-row gap-3 justify-center items-center">
+        <div className="mt-10 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-300">
+          <div className="inline-flex items-center gap-2 bg-rose-100/60 dark:bg-rose-900/20 px-4 py-1.5 rounded-full mb-5">
+            <span className="inline-block w-2 h-2 bg-rose-500 rounded-full animate-pulse"></span>
+            <span className="text-sm font-semibold text-rose-700 dark:text-rose-400">Acesso Rápido</span>
+          </div>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <Button
               onClick={handleCall180}
               size="lg"
-              className="bg-purple-200/70 hover:bg-purple-300/80 text-purple-700 backdrop-blur-sm border border-purple-300/50 min-w-[160px] h-12 shadow-sm"
+              className="bg-white/80 hover:bg-white dark:bg-gray-800/80 dark:hover:bg-gray-800 text-purple-700 dark:text-purple-400 backdrop-blur-sm border-2 border-purple-300/50 dark:border-purple-700/50 min-w-[180px] h-14 shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200 font-semibold"
             >
-              <Phone className="mr-2 h-4 w-4" />
+              <Phone className="mr-2 h-5 w-5" />
               Discar 180
             </Button>
             <Button
               onClick={handleCall190}
               size="lg"
-              className="bg-rose-200/70 hover:bg-rose-300/80 text-rose-700 backdrop-blur-sm border border-rose-300/50 min-w-[160px] h-12 shadow-sm"
+              className="bg-white/80 hover:bg-white dark:bg-gray-800/80 dark:hover:bg-gray-800 text-rose-700 dark:text-rose-400 backdrop-blur-sm border-2 border-rose-300/50 dark:border-rose-700/50 min-w-[180px] h-14 shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200 font-semibold"
             >
-              <Phone className="mr-2 h-4 w-4" />
+              <Phone className="mr-2 h-5 w-5" />
               Discar 190
             </Button>
             {/* SOS Rede - apenas para vítimas (users) */}
@@ -132,14 +132,14 @@ export const HeroSection = () => {
               <Button
                 onClick={handleSOSNetwork}
                 size="lg"
-                className="bg-blue-200/70 hover:bg-blue-300/80 text-blue-700 backdrop-blur-sm border border-blue-300/50 min-w-[160px] h-12 shadow-sm"
+                className="bg-white/80 hover:bg-white dark:bg-gray-800/80 dark:hover:bg-gray-800 text-blue-700 dark:text-blue-400 backdrop-blur-sm border-2 border-blue-300/50 dark:border-blue-700/50 min-w-[180px] h-14 shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200 font-semibold"
               >
-                <Users className="mr-2 h-4 w-4" />
+                <Users className="mr-2 h-5 w-5" />
                 SOS Rede
               </Button>
             )}
           </div>
-          <p className="text-xs text-gray-600 mt-2">
+          <p className="text-sm text-gray-500 dark:text-gray-400 mt-4">
             Clique para acesso imediato em situação de risco
           </p>
         </div>

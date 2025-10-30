@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Home, Users, Shield, Bell, User, Phone, MapPin, MessageCircle, FileText, Heart, Sparkles, Trophy } from "lucide-react";
 import { HeroSection } from "@/components/sections/HeroSection";
+import { CommunityHighlight } from "@/components/sections/CommunityHighlight";
 import { StatsSection } from "@/components/sections/StatsSection";
 import { FeaturesSection } from "@/components/sections/FeaturesSection";
 import { Button } from "@/components/ui/button";
@@ -281,6 +282,7 @@ const Index = () => {
 
         <TabsContent value="home" className="animate-fade-in">
           <HeroSection />
+          <CommunityHighlight onCommunityClick={() => setActiveTab("community")} />
           <StatsSection />
           <FeaturesSection 
             onFortalecimentoClick={() => setActiveTab("missions")}
