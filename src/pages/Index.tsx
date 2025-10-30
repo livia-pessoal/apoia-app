@@ -106,6 +106,8 @@ const Index = () => {
 
         if (data?.privacy_mode === "stealth") {
           setStealthMode(true);
+        } else {
+          setStealthMode(false);
         }
       } catch (error) {
         console.error("Erro ao verificar modo discreto:", error);
@@ -113,6 +115,17 @@ const Index = () => {
     };
 
     checkStealthMode();
+
+    // Reativar receitas ao voltar para a aba (se modo ainda estiver ativo)
+    const handleFocus = () => {
+      checkStealthMode();
+    };
+
+    window.addEventListener("focus", handleFocus);
+    
+    return () => {
+      window.removeEventListener("focus", handleFocus);
+    };
   }, []);
 
   // Alterar título da página baseado no modo discreto
@@ -276,13 +289,13 @@ const Index = () => {
   };
 
   const handleQuickExit = () => {
-    // Limpar dados
-    localStorage.removeItem("userProfile");
-    localStorage.removeItem("display_name");
-    localStorage.removeItem("profile_id");
-    
-    // Redirecionar para site neutro
-    window.location.href = "https://www.google.com/search?q=receitas+culinarias";
+    // APENAS em emergência real - limpa tudo e vai pro Google
+    if (confirm("⚠️ ATENÇÃO: Isso é para EMERGÊNCIAS. Vai limpar todos os dados e redirecionar para o Google. Confirma?")) {
+      localStorage.removeItem("userProfile");
+      localStorage.removeItem("display_name");
+      localStorage.removeItem("profile_id");
+      window.location.href = "https://www.google.com/search?q=receitas+culinarias";
+    }
   };
 
   if (!userProfile) {

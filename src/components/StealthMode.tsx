@@ -14,38 +14,67 @@ export const StealthMode = ({ onExit }: StealthModeProps) => {
   const recipes = [
     {
       id: 1,
-      title: "Bolo de Chocolate",
+      title: "🍫 Bolo de Chocolate",
       time: "45 min",
       difficulty: "Fácil",
       description: "Delicioso bolo de chocolate com cobertura cremosa",
+      category: "Doces",
     },
     {
       id: 2,
-      title: "Arroz de Forno",
+      title: "🍚 Arroz de Forno",
       time: "1h 15min",
       difficulty: "Médio",
       description: "Arroz gratinado com queijo e frango desfiado",
+      category: "Pratos Principais",
     },
     {
       id: 3,
-      title: "Salada Caesar",
+      title: "🥗 Salada Caesar",
       time: "20 min",
       difficulty: "Fácil",
       description: "Salada clássica com molho caesar caseiro",
+      category: "Saladas",
     },
     {
       id: 4,
-      title: "Lasanha à Bolonhesa",
+      title: "🍝 Lasanha à Bolonhesa",
       time: "1h 30min",
       difficulty: "Médio",
       description: "Lasanha tradicional com molho bolonhesa",
+      category: "Massas",
     },
     {
       id: 5,
-      title: "Brigadeiro Gourmet",
+      title: "🍬 Brigadeiro Gourmet",
       time: "30 min",
       difficulty: "Fácil",
       description: "Brigadeiro cremoso com chocolate nobre",
+      category: "Doces",
+    },
+    {
+      id: 6,
+      title: "🥘 Feijoada Completa",
+      time: "2h",
+      difficulty: "Difícil",
+      description: "Feijoada tradicional brasileira com todos os acompanhamentos",
+      category: "Pratos Principais",
+    },
+    {
+      id: 7,
+      title: "🍰 Cheesecake de Frutas Vermelhas",
+      time: "1h + geladeira",
+      difficulty: "Médio",
+      description: "Cheesecake cremoso com calda de frutas vermelhas",
+      category: "Doces",
+    },
+    {
+      id: 8,
+      title: "🥙 Wrap de Frango",
+      time: "25 min",
+      difficulty: "Fácil",
+      description: "Wrap saudável com frango grelhado e vegetais",
+      category: "Lanches",
     },
   ];
 
@@ -61,14 +90,14 @@ export const StealthMode = ({ onExit }: StealthModeProps) => {
                 Minhas Receitas
               </h1>
             </div>
-            {/* Botão secreto para sair - triplo toque */}
+            {/* Botão secreto para sair - APENAS duplo clique */}
             <button
-              onClick={onExit}
-              className="text-xs text-gray-400 hover:text-gray-600 px-2 py-1"
               onDoubleClick={(e) => {
                 e.preventDefault();
                 onExit();
               }}
+              className="text-xs text-gray-400 hover:text-gray-600 px-2 py-1 select-none"
+              title="Clique 2x para acesso temporário ao app"
             >
               v1.2
             </button>
@@ -110,9 +139,14 @@ export const StealthMode = ({ onExit }: StealthModeProps) => {
             >
               <div className="flex items-start justify-between">
                 <div className="flex-1">
-                  <h3 className="font-semibold text-gray-900 dark:text-white mb-1">
-                    {recipe.title}
-                  </h3>
+                  <div className="flex items-center gap-2 mb-1">
+                    <h3 className="font-semibold text-gray-900 dark:text-white text-lg">
+                      {recipe.title}
+                    </h3>
+                  </div>
+                  <p className="text-xs text-gray-500 dark:text-gray-400 mb-1">
+                    {recipe.category}
+                  </p>
                   <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
                     {recipe.description}
                   </p>
@@ -138,10 +172,10 @@ export const StealthMode = ({ onExit }: StealthModeProps) => {
           ))}
       </div>
 
-      {/* Dica para sair do modo secreto */}
-      <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2 opacity-20 hover:opacity-100 transition-opacity">
-        <p className="text-xs text-gray-500 text-center">
-          Toque 2x no "v1.2" (canto superior) para voltar ao app
+      {/* Dica para acesso temporário */}
+      <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm px-4 py-2 rounded-full shadow-lg opacity-30 hover:opacity-100 transition-opacity">
+        <p className="text-xs text-gray-600 dark:text-gray-400 text-center">
+          💡 <strong>Clique 2x no "v1.2"</strong> para acesso temporário ao Apoia
         </p>
       </div>
     </div>
