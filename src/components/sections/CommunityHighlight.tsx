@@ -32,7 +32,7 @@ export const CommunityHighlight = ({ onCommunityClick }: CommunityHighlightProps
   };
 
   return (
-    <section className="px-6 py-8 -mt-8 relative z-20">
+    <section className="px-6 py-8 -mt-8 relative">
       <Card className="relative overflow-hidden bg-gradient-to-br from-purple-50 via-pink-50 to-purple-50 dark:from-purple-950/30 dark:via-pink-950/20 dark:to-purple-950/30 border-2 border-purple-200/50 dark:border-purple-800/50 shadow-xl hover:shadow-2xl transition-all duration-300">
         {/* Decoração de fundo */}
         <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-purple-300/20 to-pink-300/20 rounded-full blur-3xl" />

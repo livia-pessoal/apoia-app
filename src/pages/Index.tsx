@@ -219,7 +219,7 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-gradient-subtle pb-20">
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-        <div className="sticky top-0 z-10 bg-background/80 backdrop-blur-lg border-b border-border">
+        <div className="sticky top-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border">
           <div className="flex items-center justify-between px-4 py-2">
             <div className="flex items-center gap-3">
               {/* Logo APOIA - bem pequena e discreta */}
