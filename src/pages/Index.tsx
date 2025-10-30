@@ -56,6 +56,7 @@ const Index = () => {
   
   // Modo Discreto
   const [stealthMode, setStealthMode] = useState(false);
+  const [shakeEnabled, setShakeEnabled] = useState(false); // Shake desabilitado por padrão
   
   const stats = getStats();
   
@@ -127,19 +128,19 @@ const Index = () => {
     };
   }, [stealthMode]);
 
-  // Detecção de shake para ativar/desativar modo discreto
-  useShakeDetection(() => {
-    setStealthMode((prev) => {
-      const newMode = !prev;
-      toast.success(
-        newMode 
-          ? "🔒 Modo discreto ativado (agite novamente para desativar)" 
-          : "✨ Modo normal ativado",
-        { duration: 2000 }
-      );
-      return newMode;
-    });
-  });
+  // Detecção de shake DESABILITADA temporariamente (muito sensível)
+  // useShakeDetection(() => {
+  //   setStealthMode((prev) => {
+  //     const newMode = !prev;
+  //     toast.success(
+  //       newMode 
+  //         ? "🔒 Modo discreto ativado (agite novamente para desativar)" 
+  //         : "✨ Modo normal ativado",
+  //       { duration: 2000 }
+  //     );
+  //     return newMode;
+  //   });
+  // });
 
   // Listener para mudança de modo discreto via ProfileTab
   useEffect(() => {

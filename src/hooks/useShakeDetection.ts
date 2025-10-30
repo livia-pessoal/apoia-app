@@ -1,4 +1,4 @@
-import { useEffect, useCallback } from 'react';
+import { useEffect, useCallback, useRef } from 'react';
 
 interface ShakeDetectionOptions {
   threshold?: number;
@@ -9,7 +9,8 @@ export const useShakeDetection = (
   onShake: () => void,
   options: ShakeDetectionOptions = {}
 ) => {
-  const { threshold = 15, timeout = 500 } = options;
+  const { threshold = 50, timeout = 1000 } = options; // Muito mais alto!
+  const lastShakeTime = useRef(0);
 
   const handleShake = useCallback(() => {
     let lastX = 0;
@@ -22,6 +23,12 @@ export const useShakeDetection = (
       if (!acceleration) return;
 
       const currentTime = new Date().getTime();
+      
+      // Debounce: ignorar shake se último foi há menos de 2 segundos
+      if (currentTime - lastShakeTime.current < 2000) {
+        return;
+      }
+      
       if (currentTime - lastUpdate > 100) {
         const diffTime = currentTime - lastUpdate;
         lastUpdate = currentTime;
@@ -34,6 +41,7 @@ export const useShakeDetection = (
           (Math.abs(x + y + z - lastX - lastY - lastZ) / diffTime) * 10000;
 
         if (speed > threshold) {
+          lastShakeTime.current = currentTime; // Atualizar último shake
           onShake();
         }
 

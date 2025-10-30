@@ -538,8 +538,8 @@ export const ProfileTab = () => {
                 <p className="text-sm font-medium">Modo Discreto</p>
                 <p className="text-xs text-muted-foreground">
                   {privacyMode === "stealth" 
-                    ? "🔒 App disfarçado como receitas. Agite para alternar"
-                    : "Disfarçar app para proteção rápida"}
+                    ? "🔒 App disfarçado como receitas"
+                    : "Disfarçar app como receitas para proteção"}
                 </p>
               </div>
             </div>
@@ -562,7 +562,7 @@ export const ProfileTab = () => {
                   
                   toast.success(
                     newMode === "stealth" 
-                      ? "🔒 Modo discreto ativado! Agite o celular para alternar rapidamente" 
+                      ? "🔒 Modo discreto ativado! Toque 2x no 'v1.2' para voltar" 
                       : "✨ Modo normal ativado"
                   );
                 } catch (error) {

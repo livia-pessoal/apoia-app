@@ -141,7 +141,7 @@ export const StealthMode = ({ onExit }: StealthModeProps) => {
       {/* Dica para sair do modo secreto */}
       <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2 opacity-20 hover:opacity-100 transition-opacity">
         <p className="text-xs text-gray-500 text-center">
-          Agite o celular ou toque 2x no "v1.2" para voltar
+          Toque 2x no "v1.2" (canto superior) para voltar ao app
         </p>
       </div>
     </div>
