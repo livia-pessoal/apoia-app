@@ -289,13 +289,8 @@ const Index = () => {
   };
 
   const handleQuickExit = () => {
-    // APENAS em emergência real - limpa tudo e vai pro Google
-    if (confirm("⚠️ ATENÇÃO: Isso é para EMERGÊNCIAS. Vai limpar todos os dados e redirecionar para o Google. Confirma?")) {
-      localStorage.removeItem("userProfile");
-      localStorage.removeItem("display_name");
-      localStorage.removeItem("profile_id");
-      window.location.href = "https://www.google.com/search?q=receitas+culinarias";
-    }
+    // Apenas volta para a calculadora, mantendo dados salvos
+    navigate("/");
   };
 
   if (!userProfile) {
